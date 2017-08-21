@@ -1,4 +1,4 @@
-# Skills-Tech-For-Software-Development-Management
+# Skills and Tech and For Software Development Management
 A list to keep track of important skills and tech for software and technical product development management. 
 
 ### SKILLS
@@ -10,6 +10,11 @@ A list to keep track of important skills and tech for software and technical pro
 - Understanding the unique needs for Web, Mobile, UX, Data Science Teams
 - Continuous integration and delivery
 - Data management, analytics and security
+- Learning and Keeping up
+  -  Technology Radar https://www.thoughtworks.com/radar
+  -  People Management https://rework.withgoogle.com/
+  -  Pluralsight https://www.pluralsight.com/
+
 
 ### TECH
 
