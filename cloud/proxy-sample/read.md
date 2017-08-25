@@ -5,7 +5,9 @@
 ### Build and run the cluster
 docker-compose build
 docker-compose up
-docker-compose scale app=4
+
+### Scale up
+docker-compose up --scale app=4
 
 #### ssh into the proxy
 docker-compose exec proxy sh
