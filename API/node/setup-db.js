@@ -1,52 +1,31 @@
-var pgtools = require('pgtools');
+const { Client } = require('pg');
 
-var pg = require('pg');
+var conString = "postgres://postgres:mysecretpassword@localhost:5433/";
 
-const config = {
-  user: 'postgres',
-  password: 'mysecretpassword',
-  port: 5432,
-  host: 'localhost'
-}
-pgtools.dropdb(config, 'n-api', function (err, res) {
-    if (err) {
-      console.error(err);
-      process.exit(-1);
-    }
-    console.log(res);
-    pgtools.createdb(config, 'n-api', function (err, res) {
-  if (err) {
-    console.error(err);
-    process.exit(-1);
-  }
-  console.log(res);
-
-});
-  });
-
-
-var conString = "postgres://postgres:mysecretpassword@localhost:5432/n-api";
-
-var client = new pg.Client(conString);
+var client = new Client(conString + 'postgres');
 client.connect();
 
-//queries are queued and executed one after another once the connection becomes available
-var x = 1000;
-client.query(
-  'CREATE TABLE names(id SERIAL PRIMARY KEY, name VARCHAR(100) not null, number INT)');
-while (x > 0) {
-    client.query("INSERT INTO names(name, number) values('Ted',12)");
-    client.query("INSERT INTO names(name, number) values($1, $2)", ['John', x]);
-    x = x - 1;
-}
+client.query("DROP DATABASE napi;", (e, r) => {
 
-var query = client.query("SELECT * FROM names");
-//fired after last row is emitted
-console.log(query);
-query.on('row', function(row) {
-    console.log(row);
-});
+    client.query("CREATE DATABASE napi;", (err, res) => {
+        if (err) {
+            console.log('Database already exists');
 
-query.on('end', function() {
-    client.end();
+        } else {
+            client.end();
+            clientnapi = new Client(conString + 'napi');
+            var x = 1000;
+            clientnapi.query(
+                'CREATE TABLE names(id SERIAL PRIMARY KEY, name VARCHAR(100) not null, number INT)');
+            while (x > 0) {
+                clientnapi.query("INSERT INTO names(name, number) values('Ted',12)");
+                clientnapi.query("INSERT INTO names(name, number) values($1, $2)", ['John', x]);
+                x = x - 1;
+
+            }
+            console.log('Created database and sample records.');
+        }
+        clientnapi.end();
+
+    });
 });
