@@ -1,0 +1,14 @@
+{
+    "name": "NodeAPI",
+    "scripts": {
+        "deploy": "docker run --rm --name node-api -p:5433:5432 -e POSTGRES_PASSWORD=mysecretpassword -d onjin/alpine-postgres",
+        "release": ""
+    },
+    "dependencies": {
+        "pg": "^7.3.0"
+    },
+    "devDependencies": {
+        "pg": "^7.3.0",
+        "pgtools": "^0.3.0"
+    }
+}
